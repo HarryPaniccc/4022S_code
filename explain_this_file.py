@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 
 
 # TRY keep consistent path relations. Just put them in 4022S_data
+# Relative path starts with "../4022S_data/undergrad_testset/" followed by filename
 f = h5py.File('../4022S_data/undergrad_testset/Experiment_moving_target_forward_data.hdf5')
 print(list(f.keys()))   #h5py.File works like a python dictionary
                         #we can check the keys
