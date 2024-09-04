@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 
 # Replace with the path to your HDF5 file
 
-f = h5py.File('Experiment_moving_target_forward_data.hdf5')
+
+# TRY keep consistent path relations. Just put them in 4022S_data
+f = h5py.File('../4022S_data/undergrad_testset/Experiment_moving_target_forward_data.hdf5')
 print(list(f.keys()))   #h5py.File works like a python dictionary
                         #we can check the keys
 
