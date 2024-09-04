@@ -39,7 +39,7 @@ def azimuth_sum(range_azimuth_fft):
     return 20*np.log10((range_azimuth_fft)/np.max(np.max(np.abs(range_azimuth_fft))))
 
 def range_doppler_fft(data, range_pad, doppler_pad, range_window=np.hanning,doppler_window=np.hanning):
-    """Performs the range doppler process on a radar data cube with a given range zero pad and window function, doppler zero pad and window functin.
+    """Performs the range doppler process on a radar data cube with a given range zero pad and window function, doppler zero pad and window function.
     It does a 1D range fft on each chirp in each channel and then a 1D doppler fft accross chirps on each sample to get the range doppler map. It
     does this for each virtual channel.
 
@@ -50,7 +50,6 @@ def range_doppler_fft(data, range_pad, doppler_pad, range_window=np.hanning,dopp
         input: doppler_window   -> window function handle used for chirp axis. Default is numpy hanning window.
 
         output: rd_fft          -> 3D matrix of size (nSamples+range_pad, nChirps+dopple_pad, nVChannels). This is complex data. Not 20*log().
-        
     """
     # range fft
     data = range_fft(data, range_pad, range_window)

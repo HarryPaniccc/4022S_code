@@ -7,7 +7,7 @@ from scipy.fft import fft, fftshift # Might not need this
 from radar_ffts import range_doppler_fft, range_doppler_sum
 
 
-f = h5py.File('Experiment_moving_target_back_data.hdf5') # Read in the file
+f = h5py.File('../4022S_data/undergrad_testset/Experiment_moving_target_forward_data.hdf5') # Read in the file
 
 frame_data = f['Sensors/TI_Radar/Data/Frame_10/frame_data'] # Collect the data of a specific frame, idk just fucking figure it out
 
