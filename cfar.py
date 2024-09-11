@@ -34,10 +34,10 @@ def cfar(range_doppler_map, cfar_range_guard, cfar_range_training, cfar_doppler_
                 cfar_doppler_training: cfar_doppler_training+1+2* cfar_doppler_guard] = guard        
     
     # additional cfar params 
-    pfa =  cfar_pfa                                             # probability of false alarms
+    pfa =  cfar_pfa                                                 # probability of false alarms
     num_train_cells = np.sum(np.sum(p_kernel))                      # number of training cells
     alpha = num_train_cells * (pfa ** (-1 / num_train_cells) - 1)   # threshold gain
-    dims = np.shape(range_doppler_map)
+    dims = np.shape(range_doppler_map)                              # HARRY: This should always be 2D
     kernel = np.zeros(dims)
 
     # squaring the range_doppler_map
@@ -47,13 +47,13 @@ def cfar(range_doppler_map, cfar_range_guard, cfar_range_training, cfar_doppler_
     kernel[0 : np.size(p_kernel, 0), 0 : np.size(p_kernel, 1)] = p_kernel
     kernel = kernel / num_train_cells
 
-    mask = fft2(kernel)                                            # put mask in frequency
-    noise = ifft2(np.multiply(np.conj(mask), fft2(rdm_power))) # convolution done in frequency
-    row_shift = int( np.floor(np.size(p_kernel, 0) // 2))              # shift that has to be accounted for after the convolution
-    noise = np.roll(noise, row_shift, 0)                               # account for shift introduced by convolution
+    mask = fft2(kernel)                                             # put mask in frequency
+    noise = ifft2(np.multiply(np.conj(mask), fft2(rdm_power)))      # convolution done in frequency
+    row_shift = int( np.floor(np.size(p_kernel, 0) // 2))           # shift that has to be accounted for after the convolution
+    noise = np.roll(noise, row_shift, 0)                            # account for shift introduced by convolution
 
     # threshold exceedance
-    indices = rdm_power > (noise * alpha +  cfar_threshold) # does the RD map exceed the cfar threshold at any points?
+    indices = rdm_power > (noise * alpha +  cfar_threshold)     # does the RD map exceed the cfar threshold at any points?
     detection_indices = np.argwhere(indices)                    # list of [row_idx, col_idx] where there is a possible detections
     n = np.size(detection_indices, 0)                           # number of possible detections
     
