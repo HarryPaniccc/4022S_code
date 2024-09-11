@@ -5,9 +5,9 @@ from scipy.fft import fft2,fftshift, ifft2
 import cv2 
 
 
-def cfar(range_doppler_map, cfar_range_guard, cfar_range_training, cfar_doppler_guard, cfar_doppler_training,cfar_pfa, cfar_threshold) :
+def cfar(range_doppler_map, cfar_range_guard, cfar_range_training, cfar_doppler_guard, cfar_doppler_training,cfar_pfa, cfar_threshold):
     """Performs the CFAR process by creating a kernel of size [1 + 2*( cfar_range_guard +  cfar_range_training)] in range axis and
-    [1 + 2*( cfar_doppler_guard +  cfar_doppler_training)))] in the doppler axis. It then takes the fft of the kernal and mutliplies that with the 
+    [1 + 2*( cfar_doppler_guard +  cfar_doppler_training)))] in the doppler axis. It then takes the fft of the kernel and mutliplies that with the 
     frequency response of range_doppler_map to and takes the inverse fft of the result to do a 2D convolution. This slides the kernel around the map to perform
     the CFAR. 
     
