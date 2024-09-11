@@ -44,8 +44,8 @@ def range_doppler_fft(data, range_pad, doppler_pad, range_window=np.hanning,dopp
     does this for each virtual channel.
 
         input: data             -> must be a 3D array with the dimensions [numsamples,numChirps,numChannels]
-        input: range_pad         -> numbber of samples to zero pad sample/range axis
-        input: doppler_pad       -> numbber of samples to zero pad chirp/doppler axis
+        input: range_pad        -> numbber of samples to zero pad sample/range axis
+        input: doppler_pad      -> numbber of samples to zero pad chirp/doppler axis
         input: range_window     -> window function handle used for range axis. Default is numpy hanning window.
         input: doppler_window   -> window function handle used for chirp axis. Default is numpy hanning window.
 
