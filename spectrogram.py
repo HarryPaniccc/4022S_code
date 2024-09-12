@@ -1,10 +1,10 @@
 # Code from mmWave github
 
 import numpy as np
-from utils.processing.radar_ffts import range_fft
+from radar_ffts import range_fft
 import matplotlib.pyplot as plt
-from utils.processing.functions import resample_and_sync, root_mean_square_error,percentage_accuracy
-from utils.processing.filters import moving_average_filter
+from functions import resample_and_sync, root_mean_square_error,percentage_accuracy
+from filters import moving_average_filter
 
 
 def plot_spectrogram(time,signal,sample_period,window_duration,
