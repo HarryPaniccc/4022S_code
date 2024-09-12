@@ -30,7 +30,7 @@ def plot_spectrogram(time,signal,sample_period,window_duration,
     # extent_list = [time_arr[0],time_arr[-1],start_frequency,end_frequency]
     # x_ticks = np.linspace(time_arr[0],time_arr[-1],11)
 
-    # freq_inc = 10
+    # freq_inc = 10Th
     # y_ticks = np.arange(start_frequency*60,end_frequency*60+freq_inc,freq_inc)
     
     # breathing_fig = plt.figure( figsize=(8, 6))
