@@ -84,9 +84,6 @@ def plot_spectrogram(time,signal,sample_period,window_duration,
     # print()
     
     return averaged_rate, expected_heart_rate
-    
-    
-
 
 
 def psd_spectrogram(time,signal,sample_period,window_duration,pad_ratio,
@@ -168,7 +165,6 @@ def time_series_spectrogram(time,signal,sample_period,window_duration,pad_ratio,
     start_index = np.argwhere(time<=window_start_time_0)[-1][0]
     end_index = np.argwhere(time<=window_end_time_0)[-1][0]
     window_size = len(time[start_index:end_index])
-
     
     overlap = np.floor(overlap_factor*window_size)
 
