@@ -31,7 +31,7 @@ def get_measurement_parameters(hdf5_file_path):
     return freq_slope_const, number_of_samples_per_chirp, sample_rate, Tdata, bandwidth, range_bin_size
 
 
-def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map, save_map): 
+def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map): 
     """Generates a range doppler map of hdf5 radar data. Can generate a plot (make_map = 1) or just the data (make_map = 0)
         -> make_map = 1 plots the heatmap, heat_map = 0 skips it
         -> save_map = 1 saves the map as a png, save_map = 0 skips it"""
@@ -44,22 +44,17 @@ def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map, save_map)
     plotted_fftd_frame_data = range_doppler_sum(fftd_frame_data)
     plotted_fftd_frame_data=np.flip(plotted_fftd_frame_data, 0)
 
-    plt.figure()
-    plt.imshow(plotted_fftd_frame_data, aspect='auto', cmap='jet')
-    plt.title('Range-Doppler Map')
-    plt.xlabel('Doppler')
-    plt.ylabel('Range')
-    plt.colorbar(label='Power (dB)')
-    # Get current y-ticks and labels
-    y_ticks = plt.gca().get_yticks()
-    plt.gca().set_yticklabels(y_ticks[::1]*range_bin_size) #TODO: Figure out how to relabel the data, not just the ticks
-    
     if make_map:
+        plt.figure()
+        plt.imshow(plotted_fftd_frame_data, aspect='auto', cmap='jet')
+        plt.title('Range-Doppler Map')
+        plt.xlabel('Doppler')
+        plt.ylabel('Range')
+        plt.colorbar(label='Power (dB)')
+        # Get current y-ticks and labels
+        y_ticks = plt.gca().get_yticks()
+        plt.gca().set_yticklabels(y_ticks[::1]*range_bin_size) #TODO: Figure out how to relabel the data, not just the ticks
         plt.show()
-
-    if save_map:
-        file_name = hdf5_file_path.filename  # Extract file name
-        plt.savefig(f'{file_name}_frame_{frame}', format = 'png')
         
     return plotted_fftd_frame_data
 
@@ -76,3 +71,18 @@ def cfar_map(range_doppler_data, make_map):
         plt.colorbar(label='Power (dB)')
         plt.show()
     return cfar_output
+
+
+def save_range_doppler_map(range_doppler_data, range_bin_size, image_name):
+    plt.figure()
+    plt.imshow(range_doppler_data, aspect='auto', cmap='jet')
+    plt.title('Range-Doppler Map')
+    plt.xlabel('Doppler')
+    plt.ylabel('Range')
+    plt.colorbar(label='Power (dB)')
+    # Get current y-ticks and labels
+    y_ticks = plt.gca().get_yticks()
+    plt.gca().set_yticklabels(y_ticks[::1]*range_bin_size) #TODO: Figure out how to relabel the data, not just the ticks
+    plt.savefig(f'{image_name}.png', format = 'png')
+    return 0
+
