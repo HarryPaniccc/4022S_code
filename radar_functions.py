@@ -83,6 +83,6 @@ def save_range_doppler_map(range_doppler_data, range_bin_size, image_name):
     # Get current y-ticks and labels
     y_ticks = plt.gca().get_yticks()
     plt.gca().set_yticklabels(y_ticks[::1]*range_bin_size) #TODO: Figure out how to relabel the data, not just the ticks
-    plt.savefig(f'{image_name}.png', format = 'png')
+    plt.savefig(f'frames/{image_name}.png', format = 'png')
     return 0
 
