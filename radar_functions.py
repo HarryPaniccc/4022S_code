@@ -56,7 +56,6 @@ def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map):
         
     return plotted_fftd_frame_data
 
-
 def cfar_map(range_doppler_data, make_map):
     cfar_output = cfar((10**(range_doppler_data/20)), 3, 3, 2, 2, 1e-4,0)
 
