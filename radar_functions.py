@@ -32,6 +32,7 @@ def get_measurement_parameters(hdf5_file_path):
 
 
 def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map): 
+    
     """Generates a range doppler map of hdf5 radar data. Can generate a plot (make_map = 1) or just the data (make_map = 0)
         -> make_map = 1 plots the heatmap, heat_map = 0 skips it
         -> save_map = 1 saves the map as a png, save_map = 0 skips it"""
@@ -58,8 +59,11 @@ def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map):
         
     return plotted_fftd_frame_data
 
+
 def save_range_doppler_map(range_doppler_data, range_bin_size, image_name):
+    
     """Takes a range-doppler map, a range bin size and the desired name and saves the image of the graph created"""
+    
     plt.figure()
     plt.imshow(range_doppler_data, aspect='auto', cmap='jet')
     plt.title('Range-Doppler Map')
@@ -72,8 +76,11 @@ def save_range_doppler_map(range_doppler_data, range_bin_size, image_name):
     plt.savefig(f'frames/{image_name}.png', format = 'png')
     return 0
 
+
 def cfar_map(range_doppler_data, make_map):
+    
     """Makes a cfar map from range-doppler map"""
+    
     cfar_output = cfar((10**(range_doppler_data/20)), 5, 5, 3, 3, 1e-3,0) # <<<<<<<<<<<<<<<<<<<<<< This window is what edits your visibility
 
     if make_map:
@@ -87,9 +94,12 @@ def cfar_map(range_doppler_data, make_map):
         plt.show()
     return cfar_output
 
+
 def save_cfar_map(cfar_map_data, range_bin_size, image_name):
+    
     """Takes in a cfar map and saves it, using the range bin size, as well as a file name, to a file
     Takes LINEAR input from the output of the cfar_map function"""
+    
     plt.figure()
     plt.imshow(cfar_map_data, aspect = 'auto', cmap = 'jet')
     plt.title('CFAR Map')
@@ -99,4 +109,3 @@ def save_cfar_map(cfar_map_data, range_bin_size, image_name):
     y_ticks = plt.gca().get_yticks()
     plt.gca().set_yticklabels(y_ticks[::1]*range_bin_size) #TODO: Figure out how to relabel the data, not just the ticks
     plt.savefig(f'frames/{image_name}.png', format = 'png')
-
