@@ -9,10 +9,14 @@ from scipy.fft import fft, fftshift # Might not need this
 from radar_ffts import range_doppler_fft, range_doppler_sum
 from cfar import cfar, clean_cfar
 
-c = 299792458 # metres per second - need this
-
 # Gets data about the h5py file, and stores it
 def get_measurement_parameters(hdf5_file_path):
+
+    """Outputs in order: freq_slope_const, number_of_samples_per_chirp, sample_rate, Tdata, bandwidth, range_bin_size"""
+
+    c = 299792458 # metres per second - need this to be declared within the function I think
+
+
     freq_slope_const = hdf5_file_path['Sensors/TI_Radar/Parameters/profileCfg/freqSlopeConst'][()] # In MHz per microsecond
     chirp_start_index = hdf5_file_path['Sensors/TI_Radar/Parameters/frameCfg/chirpStartIndex'][()]
     chirp_end_index = hdf5_file_path['Sensors/TI_Radar/Parameters/frameCfg/chirpEndIndex'][()]
