@@ -85,7 +85,7 @@ def cfar_map(range_doppler_data, make_map):
     
     """Makes a cfar map from range-doppler map"""
     
-    cfar_output = cfar((10**(range_doppler_data/20)), 5, 5, 3, 3, 1e-3,0) # <<<<<<<<<<<<<<<<<<<<<< This window is what edits your visibility
+    cfar_output = cfar((10**(range_doppler_data/20)), 5, 5, 3, 3, 1e-4,0) # <<<<<<<<<<<<<<<<<<<<<< This window is what edits your visibility
 
     if make_map:
         plt.figure()
