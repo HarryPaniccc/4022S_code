@@ -1,6 +1,7 @@
 # A collection of functions useful the generation of range-doppler maps, CFAR maps, as well as
 # generating images and other niceties in tracking golfballs.
 # Developed by Harry Papanicolaou for EEE4022S - Semester 2 2024
+# NOT to be confused for functions.py - terribly named but does other things
 
 import h5py
 import numpy as np
@@ -8,6 +9,7 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft, fftshift # Might not need this
 from radar_ffts import range_doppler_fft, range_doppler_sum
 from cfar import cfar, clean_cfar
+import os
 
 # Gets data about the h5py file, and stores it
 def get_measurement_parameters(hdf5_file_path):
@@ -33,6 +35,16 @@ def get_measurement_parameters(hdf5_file_path):
     # From these we know c and can calculate the range bin size
     range_bin_size = c/(2*bandwidth)
     return freq_slope_const, number_of_samples_per_chirp, sample_rate, Tdata, bandwidth, range_bin_size
+
+
+def get_data_files(data_directory):
+
+    """This code should return a string array of the names of all the files in the data_directory.
+    I think maybe it should output h5py files but idk"""
+    # TODO: figure out what this should do
+
+
+
 
 
 def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map): 
