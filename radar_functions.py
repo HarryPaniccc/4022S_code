@@ -42,9 +42,18 @@ def get_data_files(data_directory):
     """This code should return a string array of the names of all the files in the data_directory.
     I think maybe it should output h5py files but idk"""
     # TODO: figure out what this should do
+    files = []
+    hdf5_data = []
 
+    for path in os.listdir(data_directory):
+        if os.path.isfile(os.path.join(data_directory, path)):
+            files.append(path)
 
+    for data_file in files:
+        measurement = h5py.File(f'{data_directory}{data_file}','r')
+        hdf5_data.append(measurement)
 
+    return hdf5_data
 
 
 def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map): 
