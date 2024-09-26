@@ -66,6 +66,9 @@ def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map):
     range_pad = 0
     doppler_pad = 0
 
+#    _, _, _, _, _, range_bin_size = get_measurement_parameters(hdf5_file_path) # Think this is cleaner but slower way of getting it
+     
+
     fftd_frame_data = range_doppler_fft(frame_data, range_pad, doppler_pad)
     plotted_fftd_frame_data = range_doppler_sum(fftd_frame_data)
     plotted_fftd_frame_data=np.flip(plotted_fftd_frame_data, 0)
@@ -98,6 +101,9 @@ def save_range_doppler_map(range_doppler_data, range_bin_size, image_name):
     # Get current y-ticks and labels
     y_ticks = plt.gca().get_yticks()
     plt.gca().set_yticklabels(y_ticks[::1]*range_bin_size) #TODO: Figure out how to relabel the data, not just the ticks
+
+    plt.draw() # Forces a figure redraw to update y ticksThey
+
     plt.savefig(f'frames/{image_name}.png', format = 'png')
     return 0
 
