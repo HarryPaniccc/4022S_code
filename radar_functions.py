@@ -78,8 +78,9 @@ def range_doppler_map(hdf5_file_path, frame, make_map_check):
     plotted_fftd_frame_data=np.flip(plotted_fftd_frame_data, 0)
 
     if make_map_check:
-        make_map(np.rot90(plotted_fftd_frame_data), range_bin_size, velocity_resolution, False) # NOTE: Rotation is done here <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        
+#        make_map(np.rot90(plotted_fftd_frame_data), range_bin_size, velocity_resolution, False) # NOTE: Rotation is done here <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        make_map(plotted_fftd_frame_data, range_bin_size, velocity_resolution, False)
+
     return plotted_fftd_frame_data
 
 
@@ -91,7 +92,8 @@ def cfar_map(range_doppler_data, range_bin_size, velocity_resolution, make_map_c
     cfar_output = cfar((10**(range_doppler_data/20)), 5, 5, 3, 3, 1e-4,0) # <<<<<<<<<<<<<<<<<<<<<< This window is what edits your visibility
 
     if make_map_check:
-        make_map(np.rot90(cfar_output), range_bin_size, velocity_resolution, True) # NOTE: Rotation is done here <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+#        make_map(np.rot90(cfar_output), range_bin_size, velocity_resolution, True) # NOTE: Rotation is done here <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        make_map(cfar_output, range_bin_size, velocity_resolution, True)
 
     return cfar_output
 
@@ -102,6 +104,8 @@ def make_map(map_data, range_bin_size, velocity_resolution, cfar_map):
     """Takes a 2d heatmap and plots it correctly scaled based on range bin size and velocity resolution
     cfar_map = true -> its a cfar map, etc
     Important to note that rotation is NOT DONE HERE, it needs to be done on the data BEFORE inputting it here"""
+
+    map_data = np.rot90(map_data)
 
     # First we get dimensions of the graphs
     num_doppler_bins, num_range_bins = map_data.shape
@@ -129,6 +133,8 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
     """Takes in a cfar map or a range-doppler map frame and saves it as an image
     if cfar_map = true it will save it as a greyscaled cfar map rather than a heatmap"""
 
+    map_data = np.rot90(map_data)
+
     # First we get dimensions of the graphs
     num_doppler_bins, num_range_bins = map_data.shape
     maximum_range = num_range_bins * range_bin_size
@@ -149,7 +155,6 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
 
     plt.draw() # Forces a figure redraw just in case
     plt.savefig(f'frames/{image_name}.png', format = 'png')
-
 
 
 # def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map): 
