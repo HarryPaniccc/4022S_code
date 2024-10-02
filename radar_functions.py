@@ -18,30 +18,32 @@ def get_measurement_parameters(hdf5_file_path):
 
     c = 299792458 # metres per second - need this to be declared within the function I think
 
-
     freq_slope_const = hdf5_file_path['Sensors/TI_Radar/Parameters/profileCfg/freqSlopeConst'][()] # In MHz per microsecond
     chirp_start_index = hdf5_file_path['Sensors/TI_Radar/Parameters/frameCfg/chirpStartIndex'][()]
     chirp_end_index = hdf5_file_path['Sensors/TI_Radar/Parameters/frameCfg/chirpEndIndex'][()]
-    frame_period = hdf5_file_path['Sensors/TI_Radar/Parameters/frameCfg/framePeriod'][()]
+    frame_period = hdf5_file_path['Sensors/TI_Radar/Parameters/frameCfg/framePeriod'][()] # Probably in ms
     ramp_end_time = hdf5_file_path['Sensors/TI_Radar/Parameters/profileCfg/rampEndTime'][()]
-    start_freq = hdf5_file_path['Sensors/TI_Radar/Parameters/profileCfg/startFreq'][()]
+    start_freq = hdf5_file_path['Sensors/TI_Radar/Parameters/profileCfg/startFreq'][()] # In GHz
     number_of_samples_per_chirp = hdf5_file_path['Sensors/TI_Radar/Parameters/profileCfg/numAdcSamples'][()]
     sample_rate = hdf5_file_path['Sensors/TI_Radar/Parameters/profileCfg/digOutSampleRate'][()] # in ks per second
+
+    print(frame_period)
 
     Tdata = number_of_samples_per_chirp * 1/(sample_rate*1000)
     # From this we can find bandwidth with B = Tdata * frequency_slope_constant
     bandwidth = Tdata * freq_slope_const * 1e6 * 1e6 # This leaves it in Hz
 
+    center_frequency = start_freq * 1e9 + bandwidth * 0.5
+    velocity_resolution = (c / center_frequency)/(2 * frame_period*1e-3)
+
     # From these we know c and can calculate the range bin size
     range_bin_size = c/(2*bandwidth)
-    return freq_slope_const, number_of_samples_per_chirp, sample_rate, Tdata, bandwidth, range_bin_size
+    return freq_slope_const, number_of_samples_per_chirp, sample_rate, Tdata, bandwidth, range_bin_size, velocity_resolution
 
 
 def get_data_files(data_directory):
 
-    """This code should return a string array of the names of all the files in the data_directory.
-    I think maybe it should output h5py files but idk"""
-    # TODO: figure out what this should do
+    """data_directory = a SINGLE string directory of the location of the files of a test set that wants to be stored together"""
     files = []
     hdf5_data = []
 
@@ -116,7 +118,7 @@ def cfar_map(range_doppler_data, make_map):
 
     if make_map:
         plt.figure()
-        plt.imshow(cfar_output, aspect='auto', cmap='jet')
+        plt.imshow(cfar_output, aspect='auto', cmap='binary')
         #plt.imshow(20 * np.log10(np.abs(after_slow_time_fft)), aspect='auto', cmap='jet')
         plt.title('CFAR Map')
         plt.xlabel('Doppler')
@@ -132,7 +134,7 @@ def save_cfar_map(cfar_map_data, range_bin_size, image_name):
     Takes LINEAR input from the output of the cfar_map function"""
     
     plt.figure()
-    plt.imshow(cfar_map_data, aspect = 'auto', cmap = 'jet')
+    plt.imshow(cfar_map_data, aspect = 'auto', cmap = 'binary')
     plt.title('CFAR Map')
     plt.xlabel('Doppler')
     plt.ylabel('Range')
