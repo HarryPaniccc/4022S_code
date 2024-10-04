@@ -98,6 +98,10 @@ def cfar_map(range_doppler_data, range_bin_size, velocity_resolution, make_map_c
     return cfar_output
 
 
+#TODO:
+#def isolate_target(cfar_map)
+
+
 
 def make_map(map_data, range_bin_size, velocity_resolution, cfar_map):
 
@@ -156,6 +160,14 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
     plt.draw() # Forces a figure redraw just in case
     plt.savefig(f'frames/{image_name}.png', format = 'png')
 
+
+#TODO:
+def get_azimuth_angle(frame_cube, cfar_map):
+    """This takes a frame and its cfar map, overlays the two, and looks at where the cfar map has found a target to find at what azimuth angle the target is."""
+
+
+
+    return azimuth_angle
 
 # def range_doppler_map(hdf5_file_path, frame, range_bin_size, make_map): 
     
