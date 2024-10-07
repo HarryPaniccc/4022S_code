@@ -98,9 +98,23 @@ def cfar_map(range_doppler_data, range_bin_size, velocity_resolution, make_map_c
     return cfar_output
 
 
-#TODO:
-#def isolate_target(cfar_map)
+#TODO: edge detection should work fine for small targets
+def isolate_target(cfar_map):
+    """This function takes a cfar map as an input and outputs how many targets are present, as well as their coordinates"""
+    number_of_targets = 0
+    target_coordinates = []
+    num_doppler_bins, num_range_bins = cfar_map.shape
+    
+    #appended_range = np.zeros(num_doppler_bins)
+    #cfar_map = np.append(cfar_map, appended_range, axis=1)
 
+    for doppler in range(num_doppler_bins):
+        for rnge in range(num_range_bins):
+            # Should only trigger once on a target
+            if cfar_map[doppler, rnge] == 0 and cfar_map[doppler, rnge + 1] == 1: # Detect rising edge
+                target_coordinates.append([doppler, rnge])
+    
+    return target_coordinates
 
 
 def make_map(map_data, range_bin_size, velocity_resolution, cfar_map):
@@ -161,11 +175,11 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
     plt.savefig(f'frames/{image_name}.png', format = 'png')
 
 
-#TODO:
+#TODO: Idk figure out sometime
 def get_azimuth_angle(frame_cube, cfar_map):
     """This takes a frame and its cfar map, overlays the two, and looks at where the cfar map has found a target to find at what azimuth angle the target is."""
 
-
+    azimuth_angle = 0
 
     return azimuth_angle
 
