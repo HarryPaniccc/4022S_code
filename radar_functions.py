@@ -147,7 +147,7 @@ def make_map(map_data, range_bin_size, velocity_resolution, cfar_map):
 
 
 
-def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name):
+def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name, directory):
     """Takes in a cfar map or a range-doppler map frame and saves it as an image
     if cfar_map = true it will save it as a greyscaled cfar map rather than a heatmap"""
 
@@ -172,7 +172,7 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
     plt.colorbar(label='Power (dB)')
 
     plt.draw() # Forces a figure redraw just in case
-    plt.savefig(f'frames/{image_name}.png', format = 'png')
+    plt.savefig(f'{directory}{image_name}.png', format = 'png')
 
 
 #TODO: Idk figure out sometime
