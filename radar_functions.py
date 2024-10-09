@@ -10,6 +10,7 @@ from scipy.fft import fft, fftshift # Might not need this
 from radar_ffts import range_doppler_fft, range_doppler_sum
 from cfar import cfar, clean_cfar
 import os
+import gc
 
 # Gets data about the h5py file, and stores it
 def get_measurement_parameters(hdf5_file_path):
@@ -175,6 +176,8 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
     plt.savefig(f'{directory}{image_name}.png', format = 'png')
 
     plt.close() # Youre an idiot for forgetting this Harry and youre bound to your eternal torment.
+
+    gc.collect()
 
 
 

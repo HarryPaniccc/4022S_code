@@ -57,7 +57,7 @@ for experiment_number in range(len(session5_data)):
     for test_being_saved in session5_data[experiment_number]:
         while True:
             try:
-                print(f'Saving range-doppler map {test_number} frame {frame_number} into {session5_frames_directory[experiment_number]}')
+                print(f'Test {test_number} frame {frame_number}: Saving RD map into {session5_frames_directory[experiment_number]}')
                 rd_map = range_doppler_map(test_being_saved, frame_number, False)
                 save_map(rd_map,
                          range_bin_size,
@@ -66,13 +66,13 @@ for experiment_number in range(len(session5_data)):
                          f'range-doppler map test {test_number} frame {frame_number}',
                          session5_frames_directory[experiment_number])
                 
-                print(f'Saving cfar map {test_number} frame {frame_number} into {session5_frames_directory[experiment_number]}')
+                print(f'Test {test_number} frame {frame_number}: Saving CF map into {session5_frames_directory[experiment_number]}')
                 cf_map = cfar_map(rd_map, range_bin_size, velocity_resolution, False)
-                save_map(cf_map,                                                        # Target map
-                         range_bin_size,                                                # range bins
-                         velocity_resolution,                                           #
-                         True, f'cfar map test {test_number} frame {frame_number}',     # name
-                         session5_frames_directory[experiment_number])                  # directory saved to
+                save_map(cf_map,                                                        
+                         range_bin_size,                                                
+                         velocity_resolution,                                           
+                         True, f'cfar map test {test_number} frame {frame_number}',     
+                         session5_frames_directory[experiment_number])
                 
                 frame_number += 1
 
@@ -87,3 +87,4 @@ for experiment_number in range(len(session5_data)):
                 frame_number = 0
                 test_number += 1
                 break
+
