@@ -5,6 +5,8 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 from radar_functions import get_measurement_parameters, get_data_files, range_doppler_map, cfar_map, make_map, save_map
+import gc
+
 
 # This was before creating the new functions
 # from radar_functions import range_doppler_map, get_measurement_parameters, cfar_map, save_range_doppler_map, save_cfar_map, get_data_files
@@ -46,7 +48,10 @@ _, _, _, _, _, range_bin_size, velocity_resolution = get_measurement_parameters(
 frame_number = 0
 test_number = 0
 
-#Session 5 is broken up into a number of experiments, each containing a number of tests
+
+
+# This causes a memory leak. Somewhere I know all the maps being generated are saved in memory as well as being saved to the directory
+# How do I prevent the code from wanting to display the maps after running?
 
 for experiment_number in range(len(session5_data)):
     for test_being_saved in session5_data[experiment_number]:
@@ -70,6 +75,13 @@ for experiment_number in range(len(session5_data)):
                          session5_frames_directory[experiment_number])                  # directory saved to
                 
                 frame_number += 1
+
+                # Need to clear the space from memory
+                del rd_map
+                del cf_map
+
+                gc.collect()
+
             except:
                 print("Onto the next test")
                 frame_number = 0

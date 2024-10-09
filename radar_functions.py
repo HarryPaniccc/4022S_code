@@ -174,6 +174,9 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
     plt.draw() # Forces a figure redraw just in case
     plt.savefig(f'{directory}{image_name}.png', format = 'png')
 
+    plt.close() # Youre an idiot for forgetting this Harry and youre bound to your eternal torment.
+
+
 
 #TODO: Idk figure out sometime
 def get_azimuth_angle(frame_cube, cfar_map):
