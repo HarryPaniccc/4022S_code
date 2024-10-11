@@ -1,16 +1,14 @@
-# This notebook identifies a ball in radar data
-# range_doppler_notebook has the basics of how to get the basics (what was I thinking when I wrote this)
+# Developed by Harry Papanicolaou for EEE4022S 2024
+# Takes in radar data and converts them to range-doppler maps and cfar maps and saves them in a directory
+# 
+#
+#
 
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 from radar_functions import get_measurement_parameters, get_data_files, range_doppler_map, cfar_map, make_map, save_map
 import gc
-
-
-# This was before creating the new functions
-# from radar_functions import range_doppler_map, get_measurement_parameters, cfar_map, save_range_doppler_map, save_cfar_map, get_data_files
-
 
 c = 299792458 # metres per second - need this
 
@@ -47,8 +45,6 @@ _, _, _, _, _, range_bin_size, velocity_resolution = get_measurement_parameters(
 # Need to take all frames of a target and generate all the maps
 frame_number = 0
 test_number = 0
-
-
 
 # This causes a memory leak. Somewhere I know all the maps being generated are saved in memory as well as being saved to the directory
 # How do I prevent the code from wanting to display the maps after running?

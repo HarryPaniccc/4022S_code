@@ -24,15 +24,15 @@ def azimuth_fft(data, azimuth_pad, channel_select=[0,1,2,3,8,9,10,11] , azimuth_
     
     # doppler fft
     return fftshift(fft(data[:,:,channel_select]*window,nVChannels + azimuth_pad ,2),2)
-
+ 
 
 def azimuth_sum(range_azimuth_fft):
-    """Converts doppler cube to single map in dB. Use this function before giving map to CFAR. Sums along the unused chirp axis.
+    """ Converts doppler cube to single map in dB. Use this function before giving map to CFAR. Sums along the unused chirp axis.
 
         input: data             -> must be a 3D array with the dimensions [numsamples,numChirps,numChannels]
 
         output: map          -> 2D matrix of size (nSamples+range_pad, nChirps+dopple_pad).
-        
+
     """
 
     range_azimuth_fft = np.sum(np.abs(range_azimuth_fft),1)
@@ -95,5 +95,3 @@ def range_doppler_sum(range_doppler_fft):
 
     range_doppler_fft = np.sum(np.abs(range_doppler_fft),2)
     return 20*np.log10(np.abs(range_doppler_fft)/np.max(np.max(np.abs(range_doppler_fft))))
-
-
