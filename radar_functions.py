@@ -90,7 +90,7 @@ def cfar_map(range_doppler_data, range_bin_size, velocity_resolution, make_map_c
     
     """Makes a cfar map from range-doppler map"""
     
-    cfar_output = cfar((10**(range_doppler_data/20)), 5, 1, 3, 1, 1e-4,0) # <<<<<<<<<<<<<<<<<<<<<< This window is what edits your visibility
+    cfar_output = cfar((10**(range_doppler_data/20)), 5, 2, 3, 2, 1e-5,0) # <<<<<<<<<<<<<<<<<<<<<< This window is what edits your visibility
 
     if make_map_check:
 #        make_map(np.rot90(cfar_output), range_bin_size, velocity_resolution, True) # NOTE: Rotation is done here <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
