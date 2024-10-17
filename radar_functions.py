@@ -1,5 +1,5 @@
 # A collection of functions useful the generation of range-doppler maps, CFAR maps, as well as
-# generating images and other niceties in tracking golfballs.
+# generating images and other niceties in tracking sports balls.
 # Developed by Harry Papanicolaou for EEE4022S - Semester 2 2024
 # NOT to be confused for functions.py - terribly named but does other things
 
@@ -140,8 +140,8 @@ def make_map(map_data, range_bin_size, velocity_resolution, cfar_map):
         plt.imshow(map_data, aspect='auto', cmap='jet', extent=[0, maximum_range,-maximum_velocity, maximum_velocity])
 
     plt.title('Range-Doppler Map')
-    plt.xlabel('Range')
-    plt.ylabel('Doppler')
+    plt.xlabel('Range (m)')
+    plt.ylabel('Doppler (m/s)')
     plt.colorbar(label='Power (dB)')
     
     plt.show()
@@ -168,8 +168,8 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
         plt.imshow(map_data, aspect='auto', cmap='jet', extent=[0, maximum_range,-maximum_velocity, maximum_velocity])
 
     plt.title('Range-Doppler Map')
-    plt.xlabel('Range')
-    plt.ylabel('Doppler')
+    plt.xlabel('Range (m)')
+    plt.ylabel('Doppler (m/s)')
     plt.colorbar(label='Power (dB)')
 
     plt.draw() # Forces a figure redraw just in case
