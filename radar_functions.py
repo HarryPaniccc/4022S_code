@@ -64,7 +64,6 @@ def range_doppler_map(hdf5_file_path, frame, make_map_check):
     
     """Generates a range doppler map of hdf5 radar data. Can generate a plot (make_map = 1) or just the data (make_map = 0)
         -> make_map = 1 plots the heatmap, heat_map = 0 skips it
-        -> save_map = 1 saves the map as a png, save_map = 0 skips it
         Its important to note that the input to this must be in the default orientation as defined by the radar when it takes data. 
         Rotating it before the transforms could break everything"""
     
@@ -136,10 +135,12 @@ def make_map(map_data, range_bin_size, velocity_resolution, cfar_map):
 
     if cfar_map == True:
         plt.imshow(map_data, aspect='auto', cmap='binary', extent=[0, maximum_range,-maximum_velocity, maximum_velocity])
+        plt.title('CFAR Map')
+
     else:
         plt.imshow(map_data, aspect='auto', cmap='jet', extent=[0, maximum_range,-maximum_velocity, maximum_velocity])
+        plt.title('Range-Doppler Map')
 
-    plt.title('Range-Doppler Map')
     plt.xlabel('Range (m)')
     plt.ylabel('Doppler (m/s)')
     plt.colorbar(label='Power (dB)')
@@ -164,10 +165,12 @@ def save_map(map_data, range_bin_size, velocity_resolution, cfar_map, image_name
 
     if cfar_map == True:
         plt.imshow(map_data, aspect='auto', cmap='binary', extent=[0, maximum_range,-maximum_velocity, maximum_velocity])
+        plt.title('CFAR Map')
     else:
         plt.imshow(map_data, aspect='auto', cmap='jet', extent=[0, maximum_range,-maximum_velocity, maximum_velocity])
+        plt.title('Range-Doppler Map')
 
-    plt.title('Range-Doppler Map')
+
     plt.xlabel('Range (m)')
     plt.ylabel('Doppler (m/s)')
     plt.colorbar(label='Power (dB)')
